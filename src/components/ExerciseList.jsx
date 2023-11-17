@@ -1,48 +1,57 @@
-import { useState } from "react"
+import React, { useState } from 'react';
 
-const ExerciseList= ({exercises, onAddSelectedExercises})=>{
+const ExerciseTracker = () => {
+    const [exerciseName, setExerciseName] = useState('');
+    const [sets, setSets] = useState('');
+    const [reps, setReps] = useState('');
+    const [exerciseList, setExerciseList] = useState([]);
 
-    const [selectedExercises, setSelectedExercises] = useState([]);
+    const handleButtonClick = () => {
+        if (exerciseName.trim() !== '' && sets.trim() !== '' && reps.trim() !== '') {
+            const newExercise = {
+                name: exerciseName,
+                sets: sets,
+                reps: reps,
+            };
 
-    
-const handleToggleExercise=(exercise)=>{
-    const isSelected= selectedExercises.some((e)=>e.id === exercise.id)
-    // Check to see if selected exercise has already been chosen, if so remove it
-if(isSelected){
-    setSelectedExercises((prevSelected)=>
-    prevSelected.filter((e)=> e.id !== exercise.id)
-    
-    )
-} else{
-    setSelectedExercises((prevSelected)=>[...prevSelected,exercise])
-}
+            setExerciseList([...exerciseList, newExercise]);
+            setExerciseName('');
+            setSets('');
+            setReps('');
+            console.log(exerciseList);
+        }
+    };
 
-
-}
-
-// const handleSelectedExercise= (exerciseToAdd)=>{    
-//     setSelectedExercises((prevSelected)=>[...prevSelected,...exerciseToAdd])
-
-// }
-
-    return(
+    return (
         <div>
-            <h2>Exercise List</h2>
-        <ul>
-            {exercises.map((exercise)=>(
-                <li key={exercise.id}>
-                <label>
-                <input type="checkbox" checked={selectedExercises.some((e)=>e.id=== exercise.id)}
-                onChange={()=> handleToggleExercise(exercise)}/>
-                {exercise.name}
-                </label>
-                </li>
-           ) )}
-        </ul>
-            <button onClick={() => onAddSelectedExercises(selectedExercises)}>Add Selected Exercises</button>
+            <input
+                type="text"
+                placeholder="Exercise Name"
+                value={exerciseName}
+                onChange={(e) => setExerciseName(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="Sets"
+                value={sets}
+                onChange={(e) => setSets(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="Reps"
+                value={reps}
+                onChange={(e) => setReps(e.target.value)}
+            />
+            <button onClick={handleButtonClick}>Add Exercise</button>
+            <ul>
+                {exerciseList.map((exercise, index) => (
+                    <li key={index}>
+                        {exercise.name} - {exercise.sets} sets, {exercise.reps} reps
+                    </li>
+                ))}
+            </ul>
         </div>
-    )
+    );
+};
 
-}
-
-export default ExerciseList
+export default ExerciseTracker;
