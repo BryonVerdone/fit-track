@@ -5,7 +5,7 @@ const ExerciseList = () => {
     const [sets, setSets] = useState('');
     const [reps, setReps] = useState('');
     const [exerciseList, setExerciseList] = useState([]);
-    const [savedWorkouts, setSavedWorkoouts] = useState([])
+    const [savedWorkouts, setSavedWorkouts] = useState([])
 
 
 // Grab data from local storage when component mounts
@@ -17,7 +17,7 @@ useEffect(()=>{
     }
     //if there is a saved workout 
     if(storedWorkout){
-        setSavedWorkoouts(storedWorkout)
+        setSavedWorkouts(storedWorkout)
     }
 },[])
 
@@ -48,7 +48,7 @@ useEffect(()=>{
     };
     const handleSavedWorkout = ()=>{
 if(exerciseList.length > 0 ){
-    setSavedWorkoouts(...savedWorkouts,exerciseList)
+    setSavedWorkouts(...savedWorkouts,exerciseList)
     setExerciseList([])
     localStorage.setItem('savedWorkouts', JSON.stringify([...savedWorkouts, exerciseList]));
 }
