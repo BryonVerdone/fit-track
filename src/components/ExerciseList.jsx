@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {
+    Link, 
+  
+} from 'react-router-dom';
 import SavedWorkout from './SavedWorkout';
 
 const ExerciseList = () => {
@@ -65,7 +68,17 @@ const ExerciseList = () => {
     };
 
     return (
+        <>
+          
+        
         <div>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to='/SavedWorkoutsPage'>Saved Workouts</Link>
+                        </li>
+                    </ul>
+                </nav>
             <input
                 type="text"
                 placeholder="Exercise Name"
@@ -111,6 +124,7 @@ const ExerciseList = () => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 
