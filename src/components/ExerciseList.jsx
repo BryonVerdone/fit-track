@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import SavedWorkout from './SavedWorkout';
 
 const ExerciseList = () => {
     const [exerciseName, setExerciseName] = useState('');
     const [sets, setSets] = useState('');
     const [reps, setReps] = useState('');
     const [exerciseList, setExerciseList] = useState([]);
-    const [savedWorkouts, setSavedWorkouts] = useState([])
+    const [savedWorkouts, setSavedWorkouts] = useState([]);
 
+    // Grab data from local storage when component mounts
+    useEffect(() => {
+        const storedList = JSON.parse(localStorage.getItem('exerciseList'));
+        const storedWorkout = JSON.parse(localStorage.getItem('savedWorkouts'));
 
-// Grab data from local storage when component mounts
-useEffect(()=>{
-    const storedList= JSON.parse(localStorage.getItem('exerciseList'))
-    const storedWorkout = JSON.parse(localStorage.getItem('savedWorkouts'))
-    if(storedList){
-        setExerciseList(storedList)
-    }
-    //if there is a saved workout 
-    if(storedWorkout){
-        setSavedWorkouts(storedWorkout)
-    }
-},[])
+        if (storedList) {
+            setExerciseList(storedList);
+        }
 
-// when exersicerList or savedWorkout changeds update local storage
-useEffect(()=>{
-    localStorage.setItem('exerciseList',JSON.stringify(exerciseList))
-},[exerciseList])
+        if (storedWorkout) {
+            setSavedWorkouts(storedWorkout);
+        }
+    }, []);
 
-// useEffect(()=>{
-//     localStorage.setItem('savedWorkouts',JSON.stringify(savedWorkouts))
-// },[savedWorkouts])
-
+    // when exerciseList or savedWorkouts changes, update local storage
+    useEffect(() => {
+        localStorage.setItem('exerciseList', JSON.stringify(exerciseList));
+    }, [exerciseList]);
 
     const handleButtonClick = () => {
         if (exerciseName.trim() !== '' && sets.trim() !== '' && reps.trim() !== '') {
@@ -43,17 +40,27 @@ useEffect(()=>{
             setExerciseName('');
             setSets('');
             setReps('');
-            console.log(setExerciseList);
         }
     };
-    const handleSavedWorkout = ()=>{
-if(exerciseList.length > 0 ){
-    setSavedWorkouts(...savedWorkouts,exerciseList)
-    setExerciseList([])
-    localStorage.setItem('savedWorkouts', JSON.stringify([...savedWorkouts, exerciseList]));
-}
-    
-}
+
+    const handleSavedWorkout = () => {
+        if (exerciseList.length > 0) {
+            const newWorkout = {
+                id: Date.now(),
+                exercises: [...exerciseList],
+            };
+
+            // Update state with the new workout
+            setSavedWorkouts((prevWorkouts) => [...prevWorkouts, newWorkout]);
+
+            // Clear the exerciseList
+            setExerciseList([]);
+
+            // Update local storage with the new savedWorkouts
+            localStorage.setItem('savedWorkouts', JSON.stringify([...savedWorkouts, newWorkout]));
+        }
+    };
+
     return (
         <div>
             <input
@@ -75,7 +82,9 @@ if(exerciseList.length > 0 ){
                 onChange={(e) => setReps(e.target.value)}
             />
             <button onClick={handleButtonClick}>Add Exercise</button>
-        <button onClick={handleSavedWorkout}>Save Workout</button>
+            <button onClick={handleSavedWorkout}>Save Workout</button>
+            {/* <Link to="/savedWorkoutsPage">View Saved Workouts</Link> */}
+
             <ul>
                 {exerciseList.map((exercise, index) => (
                     <li key={index}>
@@ -83,6 +92,15 @@ if(exerciseList.length > 0 ){
                     </li>
                 ))}
             </ul>
+
+            {savedWorkouts.length > 0 && (
+                <div>
+                    <h2>Saved Workouts</h2>
+                    {savedWorkouts.map((workout) => (
+                        <SavedWorkout key={workout.id} workout={workout} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
