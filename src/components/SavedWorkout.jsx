@@ -15,7 +15,7 @@ const SavedWorkout = ({ workout }) => {
             <ul>
                 {workout.exercises.map((exercise, index) => (
                     <li key={index}>
-                        {exercise.name} - {exercise.sets} sets, {exercise.reps} reps
+                        {exercise.name} - - {exercise.weight}- {exercise.sets} sets, {exercise.reps} reps
                     </li>
                 ))}
             </ul>

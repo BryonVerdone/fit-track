@@ -4,11 +4,12 @@ import SavedWorkout from './SavedWorkout';
 
 const ExerciseList = () => {
     const [exerciseName, setExerciseName] = useState('');
+    const [weight,setWeight]=useState('')
     const [sets, setSets] = useState('');
     const [reps, setReps] = useState('');
     const [exerciseList, setExerciseList] = useState([]);
     const [savedWorkouts, setSavedWorkouts] = useState([]);
-
+    
     // Grab data from local storage when component mounts
     useEffect(() => {
         const storedList = JSON.parse(localStorage.getItem('exerciseList'));
@@ -32,12 +33,14 @@ const ExerciseList = () => {
         if (exerciseName.trim() !== '' && sets.trim() !== '' && reps.trim() !== '') {
             const newExercise = {
                 name: exerciseName,
+                weight:weight,
                 sets: sets,
                 reps: reps,
             };
 
             setExerciseList([...exerciseList, newExercise]);
             setExerciseName('');
+            setWeight('')
             setSets('');
             setReps('');
         }
@@ -70,13 +73,19 @@ const ExerciseList = () => {
                 onChange={(e) => setExerciseName(e.target.value)}
             />
             <input
-                type="text"
+                type="number"
+                placeholder="Weight"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+            />
+            <input
+                type="number"
                 placeholder="Sets"
                 value={sets}
                 onChange={(e) => setSets(e.target.value)}
             />
             <input
-                type="text"
+                type="number"
                 placeholder="Reps"
                 value={reps}
                 onChange={(e) => setReps(e.target.value)}
@@ -88,7 +97,7 @@ const ExerciseList = () => {
             <ul>
                 {exerciseList.map((exercise, index) => (
                     <li key={index}>
-                        {exercise.name} - {exercise.sets} sets, {exercise.reps} reps
+                        {exercise.name} - weight {exercise.weight} - {exercise.sets} sets, {exercise.reps} reps
                     </li>
                 ))}
             </ul>
