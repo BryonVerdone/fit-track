@@ -1,21 +1,26 @@
-const SavedWorkout= ({workout})=>{
-    // data from the create exercise list and display here
-    // this should be saved in local storage for now
-    //pass in exercises as props map through them and render a list of the exercises
-return(
-<article>
-<h3>Saved Workout</h3>
-<ul>
-    {workout.map((exercise, index)=>{
-<li key={index}>{exercise.name}- {exercise.sets} - {exercise.reps}</li>
-    })}
-</ul>
+// SavedWorkout.jsx
 
-</article>
+import React from 'react';
 
+const SavedWorkout = ({ workout }) => {
+    // Check if workout and workout.exercises are defined and if workout.exercises is an array
+    if (!workout || !Array.isArray(workout.exercises)) {
+        return null; // or handle the error in some way
+    }
 
-)
+    return (
+        <div>
+            <h3>Saved Workout</h3>
+            <p>ID: {workout.id}</p>
+            <ul>
+                {workout.exercises.map((exercise, index) => (
+                    <li key={index}>
+                        {exercise.name} - {exercise.sets} sets, {exercise.reps} reps
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
 
-    
-}
-export default SavedWorkout
+export default SavedWorkout;
