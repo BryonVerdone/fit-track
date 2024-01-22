@@ -4,6 +4,7 @@ import {
   
 } from 'react-router-dom';
 import SavedWorkout from './SavedWorkout';
+import Navbar from './Navbar';
 
 const ExerciseList = () => {
     const [exerciseName, setExerciseName] = useState('');
@@ -72,13 +73,16 @@ const ExerciseList = () => {
           
         
         <div>
-                <nav>
+                {/* <nav>
                     <ul>
                         <li>
                             <Link to='/SavedWorkoutsPage'>Saved Workouts</Link>
                         </li>
                     </ul>
-                </nav>
+                </nav> */}
+
+<Navbar/>
+
             <input
                 type="text"
                 placeholder="Exercise Name"
