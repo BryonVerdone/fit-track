@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SavedWorkout from './SavedWorkout';
-
+import Navbar from './Navbar';
 const SavedWorkoutsPage = () => {
   const [savedWorkouts, setSavedWorkouts] = useState([]);
 
@@ -15,6 +15,7 @@ const SavedWorkoutsPage = () => {
 
   return (
     <div>
+      <Navbar/>
       <h2>Saved Workouts</h2>
       {savedWorkouts.map((workout) => (
         <SavedWorkout key={workout.id} workout={workout} />
