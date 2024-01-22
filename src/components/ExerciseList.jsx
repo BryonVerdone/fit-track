@@ -117,10 +117,10 @@ const ExerciseList = () => {
 
             {savedWorkouts.length > 0 && (
                 <div>
-                    <h2>Saved Workouts</h2>
+                    {/* <h2>Saved Workouts</h2>
                     {savedWorkouts.map((workout) => (
                         <SavedWorkout key={workout.id} workout={workout} />
-                    ))}
+                    ))} */}
                 </div>
             )}
         </div>
