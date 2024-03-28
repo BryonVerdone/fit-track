@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link,} from 'react-router-dom';import SavedWorkout from './SavedWorkout';import Navbar from './Navbar';
+// import { Link,} from 'react-router-dom';
+// import SavedWorkout from './SavedWorkout';
+import Navbar from './Navbar';
 
 const ExerciseList = () => {
     const [exerciseName, setExerciseName] = useState('');
@@ -28,7 +30,7 @@ const ExerciseList = () => {
         localStorage.setItem('exerciseList', JSON.stringify(exerciseList));
     }, [exerciseList]);
 
-    const handleButtonClick = () => {
+    const handleAddExercise = () => {
         if (exerciseName.trim() !== '' && sets.trim() !== '' && reps.trim() !== '') {
             const newExercise = {
                 name: exerciseName,
@@ -60,7 +62,9 @@ const ExerciseList = () => {
 
             // Update local storage with the new savedWorkouts
             localStorage.setItem('savedWorkouts', JSON.stringify([...savedWorkouts, newWorkout]));
+            
         }
+        alert('workout saved')
     };
 const handleRemoveExercise = (indexToRemove)=>{
 setExerciseList(exerciseList.filter((exercise, index) => index !== indexToRemove));
@@ -99,7 +103,7 @@ console.log('remove clicked');
                 placeholder="Reps"
                 value={reps}
                 onChange={(e) => setReps(e.target.value)}/>
-            <button onClick={handleButtonClick}>Add Exercise</button>
+            <button onClick={handleAddExercise}>Add Exercise</button>
             <button onClick={handleSavedWorkout}>Save Workout</button>
             {/* <Link to="/savedWorkoutsPage">View Saved Workouts</Link> */}
             <ul>

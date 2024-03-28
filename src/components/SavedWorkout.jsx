@@ -1,6 +1,11 @@
 // SavedWorkout.jsx
 
 import React from 'react';
+const eraseAllWorkouts=()=>{
+console.log('workouts erased');
+}
+
+        <button>Erase All Workouts</button>
 
 const SavedWorkout = ({ workout }) => {
     // Check if workout and workout.exercises are defined and if workout.exercises is an array
@@ -9,8 +14,9 @@ const SavedWorkout = ({ workout }) => {
     }
 
     return (
+        <>
         <div>
-            <h3>Saved Workout</h3>
+            
             <p>ID: {workout.id}</p>
             <ul>
                 {workout.exercises.map((exercise, index) => (
@@ -20,6 +26,8 @@ const SavedWorkout = ({ workout }) => {
                 ))}
             </ul>
         </div>
+        </>
+        
     );
 };
 
