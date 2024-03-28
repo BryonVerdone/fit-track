@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Link, 
-  
-} from 'react-router-dom';
-import SavedWorkout from './SavedWorkout';
-import Navbar from './Navbar';
+import { Link,} from 'react-router-dom';import SavedWorkout from './SavedWorkout';import Navbar from './Navbar';
 
 const ExerciseList = () => {
     const [exerciseName, setExerciseName] = useState('');
@@ -67,12 +62,13 @@ const ExerciseList = () => {
             localStorage.setItem('savedWorkouts', JSON.stringify([...savedWorkouts, newWorkout]));
         }
     };
-
+const handleRemoveExercise = (indexToRemove)=>{
+setExerciseList(exerciseList.filter((exercise, index) => index !== indexToRemove));
+console.log('remove clicked');
+};
     return (
         <>
-          
-        
-        <div>
+            <div>
                 {/* <nav>
                     <ul>
                         <li>
@@ -87,34 +83,30 @@ const ExerciseList = () => {
                 type="text"
                 placeholder="Exercise Name"
                 value={exerciseName}
-                onChange={(e) => setExerciseName(e.target.value)}
-            />
+                onChange={(e) => setExerciseName(e.target.value)}/>
             <input
                 type="number"
                 placeholder="Weight"
                 value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-            />
+                onChange={(e) => setWeight(e.target.value)}/>
             <input
                 type="number"
                 placeholder="Sets"
                 value={sets}
-                onChange={(e) => setSets(e.target.value)}
-            />
+                onChange={(e) => setSets(e.target.value)}/>
             <input
                 type="number"
                 placeholder="Reps"
                 value={reps}
-                onChange={(e) => setReps(e.target.value)}
-            />
+                onChange={(e) => setReps(e.target.value)}/>
             <button onClick={handleButtonClick}>Add Exercise</button>
             <button onClick={handleSavedWorkout}>Save Workout</button>
             {/* <Link to="/savedWorkoutsPage">View Saved Workouts</Link> */}
-
             <ul>
                 {exerciseList.map((exercise, index) => (
                     <li key={index}>
-                        {exercise.name} - weight {exercise.weight} - {exercise.sets} sets, {exercise.reps} reps
+                        {exercise.name} - {exercise.weight} lbs - {exercise.sets} sets, {exercise.reps} reps
+                        <button onClick={()=>handleRemoveExercise(index)}>Remove Exercise</button>
                     </li>
                 ))}
             </ul>
