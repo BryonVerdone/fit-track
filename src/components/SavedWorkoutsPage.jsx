@@ -10,6 +10,11 @@ const SavedWorkoutsPage = () => {
 
     if (storedWorkouts) {
       setSavedWorkouts(storedWorkouts);
+      const workoutsWithCreationDate = storedWorkouts.map(workout =>({
+        ...workout,
+        creationDate: new Date().toLocaleDateString('en-US')
+      }))
+      setSavedWorkouts(workoutsWithCreationDate);
     }
   }, []);
 
@@ -18,7 +23,7 @@ const SavedWorkoutsPage = () => {
       <Navbar/>
       <h2>Saved Workouts</h2>
       {savedWorkouts.map((workout) => (
-        <SavedWorkout key={workout.id} workout={workout} />
+        <SavedWorkout key={workout.id} workout={workout} creationDate={workout.creationDate}/>
       ))}
     </div>
   );

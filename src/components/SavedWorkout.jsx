@@ -7,7 +7,7 @@ console.log('workouts erased');
 
         <button>Erase All Workouts</button>
 
-const SavedWorkout = ({ workout }) => {
+const SavedWorkout = ({ workout,creationDate }) => {
     // Check if workout and workout.exercises are defined and if workout.exercises is an array
     if (!workout || !Array.isArray(workout.exercises)) {
         return null; // or handle the error in some way
@@ -16,8 +16,8 @@ const SavedWorkout = ({ workout }) => {
     return (
         <>
         <div>
-            
-            <p>ID: {workout.id}</p>
+            <p>{creationDate}</p>
+            {/* <p>ID: {workout.id}</p> */}
             <ul>
                 {workout.exercises.map((exercise, index) => (
                     <li key={index}>
