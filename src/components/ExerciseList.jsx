@@ -49,8 +49,10 @@ const ExerciseList = () => {
 
     const handleSavedWorkout = () => {
         if (exerciseList.length > 0) {
+            const currentDate = getCurrentDate()
             const newWorkout = {
                 id: Date.now(),
+                creationDate : currentDate,
                 exercises: [...exerciseList],
             };
 

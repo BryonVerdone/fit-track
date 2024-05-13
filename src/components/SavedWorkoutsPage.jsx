@@ -12,7 +12,7 @@ const SavedWorkoutsPage = () => {
       setSavedWorkouts(storedWorkouts);
       const workoutsWithCreationDate = storedWorkouts.map(workout =>({
         ...workout,
-        creationDate: new Date().toLocaleDateString('en-US')
+        creationDate: workout.creationDate
       }))
       setSavedWorkouts(workoutsWithCreationDate);
     }
