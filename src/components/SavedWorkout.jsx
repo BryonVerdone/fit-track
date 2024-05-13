@@ -16,7 +16,7 @@ const SavedWorkout = ({ workout,creationDate }) => {
     return (
         <>
         <div>
-            <p>{creationDate}</p>
+            <p>Workout Date: {creationDate}</p>
             {/* <p>ID: {workout.id}</p> */}
             <ul>
                 {workout.exercises.map((exercise, index) => (
